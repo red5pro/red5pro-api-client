@@ -1,0 +1,1248 @@
+{
+	"info": {
+		"_postman_id": "ddfdd669-3453-d1c3-60cd-61ab668948bf",
+		"name": "Red5 Pro Autoscale API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "General",
+			"description": "",
+			"item": [
+				{
+					"name": "Verify Stream Manager is Using the Correct Controller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/debug/cloudcontroller?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"debug",
+								"cloudcontroller"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						},
+						"description": "Verify Stream Manager is Using the Correct Controller\n\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REST API for Groups",
+			"description": "",
+			"item": [
+				{
+					"name": "Create New Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c141cb77-6006-49d6-a99c-33339b9f170b",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"groupName\", jsonData.name);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"regions\": [\n   {{region}}\n ],\n \"launchConfig\": \"aws-default-v2\",\n \"scalePolicy\": \"default-v2\"\n}"
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a5dba855-5f14-46c8-826b-4c856611dd81",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"if(jsonData.name) {",
+									"    postman.setEnvironmentVariable(\"groupName\", jsonData.name);",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group (Force)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:5080/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}?accessToken={{accessToken}}&force=true",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "5080",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								},
+								{
+									"key": "force",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Group Nodes",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "214c4d78-b9e0-4224-8a8e-6888b68ecb0d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}/node?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}",
+								"node"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Group Origins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}/node/origin?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}",
+								"node",
+								"origin"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Group Edges",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}/node/edge?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}",
+								"node",
+								"edge"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Launch New Origin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}/node/origin?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}",
+								"node",
+								"origin"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Group Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/nodegroup/{{groupName}}/stats?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"nodegroup",
+								"{{groupName}}",
+								"stats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b278ff37-a5e0-4828-b231-83c23f522e99",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "88bac878-b11f-44fe-812b-c056853177a0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "REST API for Nodes",
+			"description": "",
+			"item": [
+				{
+					"name": "Read Node",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/node/{{host-address}}?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"node",
+								"{{host-address}}"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Terminate Node",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/node/{{host-address}}?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"node",
+								"{{host-address}}"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Terminate Node (Force)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/node/{{host-address}}?accessToken={{accessToken}}&force=true",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"node",
+								"{{host-address}}"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								},
+								{
+									"key": "force",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Node Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/node/{{nodeHost}}/stats?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"node",
+								"{{nodeHost}}",
+								"stats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REST API for Streams",
+			"description": "",
+			"item": [
+				{
+					"name": "Read Streams (Broadcaster)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/{{scopeName}}/{{streamName}}?action=broadcast",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"{{scopeName}}",
+								"{{streamName}}"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "broadcast"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Streams with Region  (Broadcaster)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/{{scopeName}}/{{streamName}}?action=broadcast&region={{region-code}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"{{scopeName}}",
+								"{{streamName}}"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "broadcast"
+								},
+								{
+									"key": "region",
+									"value": "{{region-code}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Streams  (Subscriber)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/{{scopeName}}/{{streamName}}?action=subscribe",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"{{scopeName}}",
+								"{{streamName}}"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "subscribe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Streams with Region  (Subscriber)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/{{scopeName}}/{{streamName}}?action=subscribe&region={{region-code}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"{{scopeName}}",
+								"{{streamName}}"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "subscribe"
+								},
+								{
+									"key": "region",
+									"value": "{{region-code}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Streams With Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/{{scopeName}}/{{streamName}}/stats",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"{{scopeName}}",
+								"{{streamName}}",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Streams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/list",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Streams With Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/event/list/stats",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"event",
+								"list",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Streams",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/event?accessToken={{accessToken}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"admin",
+								"event"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{accessToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REST API for Alarms",
+			"description": "",
+			"item": [
+				{
+					"name": "Origin",
+					"description": "",
+					"item": [
+						{
+							"name": "Get Alarm Threshold for Origin",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/alarm/scaleout/default?type=origin&threshold={{threshold}}&accessToken={{accessToken}}",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"streammanager",
+										"api",
+										"{{api_version}}",
+										"admin",
+										"alarm",
+										"scaleout",
+										"default"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "origin"
+										},
+										{
+											"key": "threshold",
+											"value": "{{threshold}}"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Alarm Threshold for Origin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/alarm/scaleout/default?type=origin&threshold={{threshold}}&accessToken={{accessToken}}",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"streammanager",
+										"api",
+										"{{api_version}}",
+										"admin",
+										"alarm",
+										"scaleout",
+										"default"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "origin"
+										},
+										{
+											"key": "threshold",
+											"value": "{{threshold}}"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edge",
+					"description": "",
+					"item": [
+						{
+							"name": "Get Alarm Threshold for Edge",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/alarm/scaleout/default?type=edge&accessToken={{accessToken}}",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"streammanager",
+										"api",
+										"{{api_version}}",
+										"admin",
+										"alarm",
+										"scaleout",
+										"default"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "edge"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Alarm Threshold for Edge",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/admin/alarm/scaleout/default?type=edge&threshold={{threshold}}&accessToken={{accessToken}}",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"streammanager",
+										"api",
+										"{{api_version}}",
+										"admin",
+										"alarm",
+										"scaleout",
+										"default"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "edge"
+										},
+										{
+											"key": "threshold",
+											"value": "{{threshold}}"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dceb4c08-f98b-419c-a602-3f48981a665f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "607f65cf-a8c1-4132-b21f-3007d1895d68",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "REST API for VOD",
+			"description": "",
+			"item": [
+				{
+					"name": "List cloud storage HLS content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/{{scopeName}}/playlists",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"{{scopeName}}",
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List cloud storage HLS content (subscope)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/{{scopeName}}/playlists/{{subscope}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"{{scopeName}}",
+								"playlists",
+								"{{subscope}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List cloud storage media files content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/{{scopeName}}/mediafiles",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"{{scopeName}}",
+								"mediafiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List cloud storage media files content (subscope)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/{{scopeName}}/playlists/{{subscope}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"{{scopeName}}",
+								"playlists",
+								"{{subscope}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cloud storage VOD subscribe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/{{scopeName}}/{{streamname}}.{{extension}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"{{scopeName}}",
+								"{{streamname}}.{{extension}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List active VOD",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/list",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List active VOD with stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/streammanager/api/{{api_version}}/media/list/stats",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"streammanager",
+								"api",
+								"{{api_version}}",
+								"media",
+								"list",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dceb4c08-f98b-419c-a602-3f48981a665f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "607f65cf-a8c1-4132-b21f-3007d1895d68",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2ce0d80e-1fab-4822-a4b7-518e4cb8c506",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f0b59605-15bf-43c5-b976-58e689fbc09e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
